@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chatbot</title>
+     <style>
+    * {
+    box-sizing: border-box;
+  }
+ 
+  body {
+    background-color: lavender;
+    font-family: "Calibri", "Roboto", sans-serif;
+  }
+
+ .chat_window {
+  position: absolute;
+  width: calc(100% - 20px);
+  max-width: 1800px;
+  height: 1000px;
+  border-radius: 10px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  background-color: #f8f8f8;
+  overflow: hidden;
+  z-index: 1; /* Make sure the chat window is in front of the watermark */
+}
+
+.chat_window::before {
+  content: "BUDHA BOT";
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 50px;
+  font-weight: bold;
+  color: #fff;
+  opacity: 100px;
+  z-index: -1; /* Move the watermark behind the chat window */
+}
+
+.date_time_container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  background-color: #f8f8f8;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.date {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.time {
+  font-size: 16px;
+}
+
+
+
+  h1 {
+    background-color:darkorchid;
+    color:white;
+    width: 100%;
+    height:120px;
+    padding: 20px 0 15px;
+  /* box-shadow: 0 1px 30px rgba(0, 0, 0, 0.1);*/
+    text-align: center; /* added to center the text */
+    position: absolute; /* added to position the h1 element */
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: Arial, sans-serif; /* added font-family */
+    font-size:50px; /* added font-size */
+}
+
+.icon {
+    width: 200px;
+    height: 150px;
+    margin-right: 10px;
+   
+    size:50px;
+    vertical-align: middle;
+    position: absolute; /* added to position the icon element */
+    top: -20px;
+    left: 0;
+}
+
+   /* Style for the user input label */
+#greetings-form {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#greetings {
+  flex-grow: 1;
+  height: 50px;
+  width:1820px;
+  font-size: 1.5rem;
+ 
+  border-radius:25px;
+  border: 3px solid black;
+  background-color: #fff;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: calc(100% - 160px);
+   padding: 0 20px;
+}
+
+
+#greetings:focus {
+  outline: none;
+}
+
+#greetings::placeholder {
+  color: #a9a9a9;
+}
+
+#greetings + input[type="button"] {
+  width: 160px;
+  height: 50px;
+  margin-left: 20px;
+  font-size: 1.5rem;
+  padding: 1rem;                                              
+  border-radius: 50px;
+  border: 3px solid black;
+  background-color:greenyellow;
+  color: black;
+  cursor: pointer;
+  /*box-shadow: 2px 2px #000;*/
+  transition: all 0.2s linear;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  text-align: center; /* Center the text within the button */
+  float: right;
+}
+
+
+
+/* Style for the send button on hover */
+input[type="button"]:hover {
+  background-color: #0056b3;
+  box-shadow: 4px 4px #000;
+}
+
+
+
+#greeting_response{
+font-size: 1.8rem;
+  padding: 1rem;
+  border-radius: 1rem;
+  background-color: #f0f0f0;
+  color: black;
+  border: 2px solid black;
+  cursor: pointer;
+  box-shadow: 2px 2px #000;
+  transition: all 0.2s ease-in-out;
+  text-align:middle;
+  }
+/* Style for the history div */
+
+#linux_commands{
+font-size: 2rem;
+  /*margin-top: 2rem;
+ 
+  background-color: #f0f0f0;*/
+ 
+  }
+#health_checks{
+font-size: 2rem;
+ /* margin-top: 2rem;
+ 
+  background-color: #f0f0f0;
+  /box-shadow: inset 0 0 10px #ccc;/*/
+  }
+
+
+ 
+  #linux_commands {
+  display: none;
+  /* add any other styles you need */
+}
+
+#linux_commands input[type="text"] {
+  /* styles for the input field, e.g. width, height, etc. */
+}
+
+#linux_button:checked ~ #linux_commands {
+  display: block;
+}
+
+/*#greetings,
+#greetings input[type="button"] {
+  display: none;
+ 
+}*/
+
+#history {
+  max-height: calc(100vh - 500px);
+  overflow: scroll;
+}
+
+
+.chat_container {
+  max-width: 700px;
+  margin: 0 auto;
+  overflow-y: scroll;
+  height: 400px;
+}
+
+.chat_bubble {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  clear: both;
+  display: inline-block;
+  max-width: 70%;
+}
+
+.user {
+  position: relative; /* make the container element a positioning context */
+  float: right;
+  background-color: lightblue;
+  color: black;
+  border: 2px solid black;
+  border-radius:15px;
+  width:300px;
+  font-size:1.5rem;
+}
+
+.user::before {
+  content: ""; /* add content to the pseudo-element */
+  position: absolute; /* position the pseudo-element relative to its container */
+  top: 50%; /* position the pseudo-element in the middle of the container */
+  left: -60px; /* position the pseudo-element to the left of the container */
+  width: 50px; /* set the width and height of the pseudo-element */
+  height: 50px;
+  transform: translateY(-50%); /* adjust the vertical position of the pseudo-element */
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs_M6-pt0tjxhFF7o5UrPqjqwwwcELZpjZhYFsWRVfMQ&usqp=CAU&ec=48665699'); /* set the background image of the pseudo-element */
+  background-size: cover; /* make sure the icon fills the pseudo-element */
+border:circle;
+}
+
+
+
+
+.bot {
+  position: relative;
+  float: left;
+  background-color: #e6e6ff;
+  color: black;
+  border: 2px solid black;
+  border-radius:15px;
+  margin-left: 80px;
+  font-size:1.5rem;
+}
+
+
+.bot::before {
+  content: ""; /* add content to the pseudo-element */
+  position: absolute; /* position the pseudo-element relative to its container */
+  left:-60px;
+  top: 50%; /* position the pseudo-element in the middle of the container */
+  /* position the pseudo-element to the right of the container */
+  width: 50px; /* set the width and height of the pseudo-element */
+  height: 50px;
+  transform: translateY(-50%); /* adjust the vertical position of the pseudo-element */
+  background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSRU6RBENw9j2jiiwM2k9Uti3ohpZGNqpFMqv5RgnwDYA&usqp=CAU&ec=48665699'); /* set the background image of the pseudo-element */
+  background-size: cover; /* make sure the icon fills the pseudo-element */
+}
+
+
+
+</style>
+</head>
+<body>
+ <div class="chat_window">
+<h1><img class="icon" src="https://i.ibb.co/jgyZKH0/icon.jpg" alt="Chatbot Icon">
+Budha Bot</h1>
+  <div class="date_time_container">
+    <span class="date">30 April 2023</span>
+    <span class="time">10:30 AM</span>
+  </div>
+ 
+
+
+<form>
+    <label for="greetings"></label>
+    <div style="display: flex; flex-direction: row; align-items: center;">
+        <input type="text" id="greetings" name="greetings" placeholder="Enter your message" style="flex: 1;">
+        <input type="button" value="Send" onclick="send_greeting();clearTextbox()" style="text-align:center;">
+    </div>
+</form>
+<br>
+<br>
+<div id="greeting_response" style="display: none;"></div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="button-container" style="display: flex; flex-direction: row; align-items: center; justify-content: center; position: fixed; bottom: ; left: 0; right: 0;">
+  <button id="linux_btn" style="background-color: lightgreen; display: none; padding: 20px; border-radius: 10px; font-size:1.5rem; margin-right: 10px;" onclick="show_linux_commands()">Click to run Linux commands</button>
+  <div id="linux_response" style="display:none;color:black;border:2px solid black;background-color:white;"></div>
+  <button id="health_btn" style="background-color: pink; display: none; padding: 20px; border-radius: 10px; font-size:1.5rem; margin-left: 10px;" onclick="show_health_checks()">Click to run Health checks</button>
+  <div id="health_check_response" style="display:none;"></div>
+</div>
+<br>
+<br>
+ <div id="linux_commands" style="display:none;">
+  <form>
+    <br>
+    <label for="linux_command" style="font-size:1.5rem;"><b>Enter a Linux command:</b></label>
+    <input type="text" id="linux_command" style="font-size:1.5rem;border:1px solid black;border-radius:10px;width:500px; padding:10px;background-color:mintcream;" name="linux_command">
+    <input type="button" style="font-size:1.5rem;border:1px solid black;border-radius:10px; padding:10px;background-color:greenyellow;" value="Send" onclick="send_linux_command()">
+  </form>
+  <br>
+  <div id="linux_response"></div>
+</div>
+<br><br>
+
+  <div id="health_checks" style="display:none;">
+  <form>
+    <label for="health_check"style="font-size:1.5rem;"><b>Enter a health check command:</b></label>
+    <input type="text" id="health_check"style="font-size:1.5rem;border:1px solid black;border-radius:10px;width:500px; padding:10px;background-color:mintcream;" name="health_check">
+    <input type="button" style="font-size:1.5rem;border:1px solid black;border-radius:10px; padding:10px;background-color:greenyellow;"value="Send" onclick="send_health_check()">
+  </form>
+  <br>
+  <div id="health_response"></div>
+</div>
+   
+
+<br>
+  <div id="history"></div>
+   </div>
+   
+<script type="text/javascript">
+function clearTextbox() {
+document.getElementById("greetings").value = "";
+}
+
+// Get the date_time_container, date, and time elements
+const date_time_container = document.querySelector('.date_time_container');
+const date_element = document.querySelector('.date');
+const time_element = document.querySelector('.time');
+
+// Update the date and time every second
+setInterval(() => {
+  const now = new Date();
+
+  // Format the date and time strings
+  const date_string = `${now.getDate()} ${now.toLocaleString('default', { month: 'long' })} ${now.getFullYear()}`;
+  const time_string = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+  // Update the date and time elements
+  date_element.textContent = date_string;
+  time_element.textContent = time_string;
+}, 1000);
+
+ 
+let greeting_history = "";
+let linux_command_history = "";
+let health_check_history = "";
+
+function send_greeting() {
+    let input = document.getElementById("greetings").value;
+    let url = "http://127.0.0.1:5000/chat/greetings?input=" + input;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            let botResponse = data.bot_response.replace(/\n/g, "<br>"); // Replace new lines with <br> tags
+            if (input.toLowerCase() === "run command") {
+               
+                document.getElementById("linux_btn").style.display = "block";
+                document.getElementById("health_btn").style.display = "block";
+            } else {
+                document.getElementById("linux_btn").style.display = "none";
+                document.getElementById("health_btn").style.display = "none";
+            }
+            add_to_history("<div class='chat_bubble user' style='float: right;'><span style='color:blue; border:black;text-align:middle;'>User:</span>" + input + "</div>", false, "black");
+            add_to_history("<div class='chat_bubble bot'><span style='color: blue;border:black;text-align:middle;'>ChatBot: </span>" + botResponse + "</div>", true, "blue");
+             if (input.toLowerCase() === "thanks") {
+                document.getElementById("linux_commands").style.display = "none";
+                document.getElementById("health_checks").style.display = "none";
+            }
+        });
+    return false; // Prevents the form from submitting and clearing the input field
+}
+
+
+
+
+let history = [];
+function add_to_history(msg, is_backend_response, color, is_bot, is_linux, is_health_check) {
+  // Add the message to the history array
+  history.push(msg);
+
+  if (is_bot && is_linux) {
+    linux_command_history += "<span style='color: red;'>ChatBot: <br>" + msg + "</span>\n";
+  } else if (!is_bot && is_linux) {
+    linux_command_history += "<span style='color: black;'>User: " + msg + "</span>\n";
+  } else if (is_bot && is_health_check) {
+    health_check_history += "<span style='color: red;'>ChatBot: <br>" + msg + "</span>\n";
+  } else if (!is_bot && is_health_check) {
+    health_check_history += "<span style='color: black;'>User: " + msg + "</span>\n";
+  }
+
+  // Get the history display element
+  let history_display = document.getElementById("history");
+
+  // Create a new message element
+  let msg_element = document.createElement("div");
+
+  // Set the color of the message element based on whether it is a backend response or user input
+  msg_element.style.color = is_backend_response ? "blue" : "black";
+
+  // Set the text of the message element
+  msg_element.innerHTML = msg;
+
+  // If the message is a response from the chatbot, set the font weight to bold
+  if (is_bot) {
+    msg_element.style.fontWeight = "bold";
+  }
+
+  // Append the message element to the history display element
+  history_display.appendChild(msg_element);
+}
+
+
+
+
+function show_linux_commands() {
+    document.getElementById("linux_commands").style.display = "block";
+    document.getElementById("health_checks").style.display = "none";
+  // add_to_history("User clicked Linux Commands button", false, "black");
+    document.getElementById("health_checks").reset();
+}
+
+ function show_health_checks() {
+    document.getElementById("linux_commands").style.display = "none";
+    document.getElementById("health_checks").style.display = "block";
+    // add_to_history("User clicked Health Checks button", false, "black");
+    document.getElementById("command").reset();
+  }
+
+
+
+function send_linux_command() {
+  let command = document.getElementById("linux_command").value;
+  let url = "http://127.0.0.1:5000/chat/linux_commands?input=" + command;
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.bot_response.trim() === "") { // Check if the response is empty
+        let sorryMessage = "Sorry, I couldn't find any information about that.";
+        add_to_history("<div class='chat_bubble user'><span style='color:blue;'>User: </span>" + command + "</div>", false, "black");
+        add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + sorryMessage + "</div>", true, "blue");
+      } else {
+        let botResponse = data.bot_response.replace(/\n/g, "<br>"); // Replace new lines with <br> tags
+        add_to_history("<div class='chat_bubble user'><span style='color:blue;'>User: </span>" + command + "</div>", false, "black");
+        add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + botResponse + "</div>", true, "blue");
+      }
+      document.getElementById("linux_command").value = ""; // Clear input field after submission
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      let sorryMessage = "Sorry, an error occurred. Please try again later.";
+      add_to_history("<div class='chat_bubble user'><span style='color:blue;'>User: </span>" + command + "</div>", false, "black");
+      add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + sorryMessage + "</div>", true, "blue");
+    });
+}
+
+function send_health_check() {
+  let command = document.getElementById("health_check").value;
+  let url = "http://127.0.0.1:5000/chat/health_checks?input=" + command;
+  fetch(url)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.bot_response.trim() === "") { // Check if the response is empty
+        let sorryMessage = "Sorry, I couldn't find any information about that.";
+        add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + sorryMessage + "</div>", true, "blue");
+      } else {
+        let botResponse = data.bot_response.replace(/\n/g, "<br>"); // Replace new lines with <br> tags
+        add_to_history("<div class='chat_bubble user'><span style='color:blue;'>User: </span>" + command + "</div>", false, "black");
+        add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + botResponse + "</div>", true, "blue");
+      }
+      document.getElementById("health_check").value = ""; // Clear input field after submission
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      let sorryMessage = "Sorry, an error occurred. Please try again later.";
+      add_to_history("<div class='chat_bubble bot'><span style='color: blue;'>ChatBot: </span>" + sorryMessage + "</div>", true, "blue");
+    });
+}
+
+ 
+
+document.addEventListener("DOMContentLoaded", function() {
+    let greeting_form = document.getElementById("greeting_form");
+    greeting_form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        send_greeting();
+        greeting_form.reset();
+       
+    });
+
+
+
+   let linux_form = document.getElementById("linux_form");
+    linux_form.addEventListener("submit", function(event) {
+        event.preventDefault();
+       send_linux_command();
+       linux_form.reset();
+   });
+ 
+
+
+
+    let health_form = document.getElementById("health_form");
+    health_form.addEventListener("submit", function(event) {
+        event.preventDefault();
+        send_health_check();
+        health_form.reset();
+});
+});
+</script>
+</body>
+</html>
