@@ -41,6 +41,22 @@ To install VirtualBox and set up Ubuntu and Python in it, please follow the foll
         
         
         
+PROCEDURE TO RUN THIS PROJECT:
+ 
+To run a GitHub project, you'll need to follow these general steps:
+
+1.Clone the repository: Copy the GitHub repository URL and clone it using Git or download the repository as a ZIP file.
+
+2.Install dependencies: Check the project's documentation for any dependencies that need to be installed. Most projects have a README file that includes instructions on how to install and configure the dependencies.
+
+3.Set up environment variables: Some projects require environment variables to be set up. Check the project's documentation for any required environment variables and set them up in your environment.
+
+4.Build the project: Build the project using the build tool specified in the project's documentation.
+        
+        
+        
+        
+
 SCREENSHORT:
 
 
