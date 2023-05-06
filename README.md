@@ -38,3 +38,23 @@ To install VirtualBox and set up Ubuntu and Python in it, please follow the foll
         sudo apt-get install python3<br>
 -Verify that Python has been installed by typing the following command:<br>
         python3 --version<br>
+        
+        
+        
+SCREENSHORT:
+
+
+![1](https://user-images.githubusercontent.com/86156664/236601664-bea0bb47-5f87-4e20-a1c5-53a138c4cba8.jpg)
+
+this is the screenshot of basic commands of linux.<br>
+
+
+![2](https://user-images.githubusercontent.com/86156664/236601805-0570e740-a0e4-409c-8139-c6e3a10df969.jpg)
+
+this is the screenshot of the linux health checks.
+
+
+
+
+
+
