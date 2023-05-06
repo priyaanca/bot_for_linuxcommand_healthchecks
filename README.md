@@ -1,5 +1,5 @@
 # budhabot_for_linuxcommand_healthchecks
-I have developed a rule based bot for Linux health check and basic Linux commands for Linux operating system.
+I have developed a rule based bot for Linux health check and basic Linux commands for Linux operating system
 REQUIREMENTS:
 
 To install VirtualBox and set up Ubuntu and Python in it, please follow the following steps:
