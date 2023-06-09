@@ -59,18 +59,18 @@ To run a GitHub project, you'll need to follow these general steps:
 
 SCREENSHORT:
 
+![11](https://github.com/priyaanca/budhabot_for_linuxcommand_healthchecks/assets/86156664/3781a353-88b4-4bcc-ab55-865a0a1d1b32)
 
-![1](https://user-images.githubusercontent.com/86156664/236601664-bea0bb47-5f87-4e20-a1c5-53a138c4cba8.jpg)
 
 this is the screenshot of basic commands of linux.<br>
 
 
-![2](https://user-images.githubusercontent.com/86156664/236601805-0570e740-a0e4-409c-8139-c6e3a10df969.jpg)
-
-this is the screenshot of the linux health checks.
-
+![22](https://github.com/priyaanca/budhabot_for_linuxcommand_healthchecks/assets/86156664/ae6de01a-1f4e-4112-a9e6-f4a864e279a2)
+this is the screenshot of the linux health checks.<br>
 
 
+![33](https://github.com/priyaanca/budhabot_for_linuxcommand_healthchecks/assets/86156664/eab805df-a978-4521-97ea-bafcdf3b10e7)
+this is the ss of the kuberenetes commands.<br>
 
 
 
