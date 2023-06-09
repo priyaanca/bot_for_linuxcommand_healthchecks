@@ -70,7 +70,7 @@ this is the screenshot of the linux health checks.<br>
 
 
 ![33](https://github.com/priyaanca/budhabot_for_linuxcommand_healthchecks/assets/86156664/eab805df-a978-4521-97ea-bafcdf3b10e7)
-this is the ss of the kuberenetes commands.<br>
+this is the screenshot of the kuberenetes commands.<br>
 
 
 
