@@ -1,9 +1,10 @@
 # BUDHA – bot for kubernetes usability diagnostics health and analytics 
 
+
+
 BUDHA aims to enhance the user experience of the Kubernetes platform by providing a conversational interface, assisting
    in diagnostics and issue resolution, monitoring the platform's health, and offering valuable analytics and insights. By addressing 
    these objectives, BUDHA contributes to improving the overall usability, performance, and effectiveness of Kubernetes deployments.
-![image](https://github.com/priyaanca/budhabot_for_linuxcommand_healthchecks/assets/86156664/a96ce845-0a50-447d-abd3-a59a539d98b4)
 <br>
 
 
