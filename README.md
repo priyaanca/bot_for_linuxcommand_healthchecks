@@ -1,4 +1,5 @@
-# budhabot_for_linuxcommand_healthchecks
+# BUDHA – bot for kubernetes usability diagnostics health and analytics 
+
 WE have developed a rule based bot for Linux health check and basic Linux commands for Linux operating system<br>
 
 
