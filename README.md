@@ -51,7 +51,15 @@ To run a GitHub project, you'll need to follow these general steps:
 
 3.Set up environment variables: Some projects require environment variables to be set up. Check the project's documentation for any required environment variables and set them up in your environment.
 
-4.Build the project: Build the project using the build tool specified in the project's documentation.
+4.Build the project: Build the project using the build tool specified in the project's documentation.<br>
+
+
+HOW TO DEPLOY KUBERNETES WITH KUDEADM AND CONTAINERD.
+
+Refer the link for the procedure.<br>
+https://thenewstack.io/how-to-deploy-kubernetes-with-kubeadm-and-containerd/
+
+
         
         
         
